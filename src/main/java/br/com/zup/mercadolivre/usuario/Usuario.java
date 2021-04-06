@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 @Entity
 public class Usuario {
@@ -25,7 +26,7 @@ public class Usuario {
         Assert.isTrue(StringUtils.hasLength(login), "email não pode estar em branco");
         Assert.notNull(senha, "campo SenhaLimpa não pode estar nulo");
         this.instante = LocalDateTime.now();
-        this.login = login;
+        this.login = login.toLowerCase(Locale.ROOT);
         this.senha = senha.hash();
     }
 
