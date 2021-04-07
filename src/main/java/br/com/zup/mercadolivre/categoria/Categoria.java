@@ -1,7 +1,5 @@
 package br.com.zup.mercadolivre.categoria;
 
-import br.com.zup.mercadolivre.customvalidation.NotDuplicatedField;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +10,8 @@ public class Categoria {
     private Long id;
     @Column(nullable = false)
     private String nome;
-    private String categoriaMae;
+    @ManyToOne
+    private Categoria categoriaMae;
 
     public Categoria(String nome) {
         this.nome = nome;
@@ -27,7 +26,7 @@ public class Categoria {
         return this.nome;
     }
 
-    public void setCategoriaMae(String categoriaMae) {
+    public void setCategoriaMae(Categoria categoriaMae) {
         this.categoriaMae = categoriaMae;
     }
 }

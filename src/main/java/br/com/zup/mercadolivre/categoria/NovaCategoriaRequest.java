@@ -23,7 +23,7 @@ public class NovaCategoriaRequest {
 
         if(this.idCategoriaMae != null) {
             Categoria categoria1 = categoriaRepository.findById(this.idCategoriaMae).get();
-            categoria.setCategoriaMae(categoria1.getNome());
+            categoria.setCategoriaMae(categoria1);
         }
 
         return categoria;

@@ -38,7 +38,6 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Long> {
             return !valores.isEmpty();
         }
 
-
         return true;
     }
 }
