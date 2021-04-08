@@ -1,11 +1,14 @@
 package br.com.zup.mercadolivre.usuario;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Locale;
 
 @Entity
@@ -32,5 +35,13 @@ public class Usuario {
 
     @Deprecated
     public Usuario() {
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 }
