@@ -1,6 +1,9 @@
 package br.com.zup.mercadolivre.categoria;
 
+import br.com.zup.mercadolivre.produto.Produto;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Categoria {
@@ -12,6 +15,8 @@ public class Categoria {
     private String nome;
     @ManyToOne
     private Categoria categoriaMae;
+    @OneToMany(mappedBy = "categoria")
+    private List<Produto> produtos;
 
     public Categoria(String nome) {
         this.nome = nome;
