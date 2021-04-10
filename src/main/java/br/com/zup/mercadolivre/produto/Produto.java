@@ -3,6 +3,8 @@ package br.com.zup.mercadolivre.produto;
 import br.com.zup.mercadolivre.categoria.Categoria;
 import br.com.zup.mercadolivre.produto.caracteristica.Caracteristicas;
 import br.com.zup.mercadolivre.produto.caracteristica.CaracteristicasRequest;
+import br.com.zup.mercadolivre.produto.opiniao.NovaOpiniaoRequest;
+import br.com.zup.mercadolivre.produto.opiniao.Opiniao;
 import br.com.zup.mercadolivre.produto.uploadimage.Imagem;
 import br.com.zup.mercadolivre.usuario.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,6 +40,10 @@ public class Produto {
     private Usuario usuario;
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private Set<Imagem> imagens = new HashSet<>();
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<Opiniao> opinioes = new ArrayList<>();
+
+
 
     public Produto(String nome, BigDecimal valor, Integer quantidade, String descricao,
                    Categoria categoria, Usuario usuario, List<CaracteristicasRequest> caracteristicas) {
@@ -83,5 +89,13 @@ public class Produto {
                 .collect(Collectors.toSet());
 
         this.imagens.addAll(imagens);
+    }
+
+    public void addOpiniao(NovaOpiniaoRequest novaOpiniao, Usuario usuario){
+
+        Opiniao opiniao = new Opiniao(novaOpiniao.getNota(), novaOpiniao.getTitulo(), novaOpiniao.getDescricao(),
+                usuario, this);
+
+        this.opinioes.add(opiniao);
     }
 }
