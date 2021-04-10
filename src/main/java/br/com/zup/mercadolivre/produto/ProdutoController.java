@@ -1,15 +1,15 @@
 package br.com.zup.mercadolivre.produto;
 
 import br.com.zup.mercadolivre.categoria.CategoriaRepository;
+import br.com.zup.mercadolivre.produto.uploadimage.NovasImagensRequest;
 import br.com.zup.mercadolivre.usuario.Usuario;
 import br.com.zup.mercadolivre.usuario.UsuarioLogado;
 import br.com.zup.mercadolivre.usuario.UsuarioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -41,4 +41,5 @@ public class ProdutoController {
 
         return ResponseEntity.ok().build();
     }
+
 }

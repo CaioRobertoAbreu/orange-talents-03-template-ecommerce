@@ -3,20 +3,16 @@ package br.com.zup.mercadolivre.produto;
 import br.com.zup.mercadolivre.categoria.Categoria;
 import br.com.zup.mercadolivre.produto.caracteristica.Caracteristicas;
 import br.com.zup.mercadolivre.produto.caracteristica.CaracteristicasRequest;
+import br.com.zup.mercadolivre.produto.uploadimage.Imagem;
 import br.com.zup.mercadolivre.usuario.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -40,6 +36,8 @@ public class Produto {
     private Set<Caracteristicas> caracteristicas = new HashSet<>();
     @ManyToOne
     private Usuario usuario;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private Set<Imagem> imagens = new HashSet<>();
 
     public Produto(String nome, BigDecimal valor, Integer quantidade, String descricao,
                    Categoria categoria, Usuario usuario, List<CaracteristicasRequest> caracteristicas) {
@@ -74,5 +72,16 @@ public class Produto {
     @Override
     public int hashCode() {
         return Objects.hash(nome);
+    }
+
+    public String getLoginUsuario() {
+        return usuario.getLogin();
+    }
+
+    public void addImagens(Set<String> links) {
+        Set<Imagem> imagens = links.stream().map(link -> new Imagem(link, this))
+                .collect(Collectors.toSet());
+
+        this.imagens.addAll(imagens);
     }
 }
