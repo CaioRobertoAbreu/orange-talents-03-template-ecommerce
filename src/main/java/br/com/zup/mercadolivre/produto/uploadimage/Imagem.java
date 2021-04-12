@@ -32,6 +32,10 @@ public class Imagem {
         this.produto = produto;
     }
 
+    public String getLink() {
+        return link;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

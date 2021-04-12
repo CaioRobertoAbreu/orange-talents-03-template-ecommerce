@@ -10,7 +10,6 @@ import br.com.zup.mercadolivre.produto.pergunta.Pergunta;
 import br.com.zup.mercadolivre.produto.uploadimage.Imagem;
 import br.com.zup.mercadolivre.usuario.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -108,4 +107,33 @@ public class Produto {
 
         this.perguntas.add(pergunta);
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Set<Caracteristicas> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public Set<Imagem> getImagens() {
+        return imagens;
+    }
+
+    public List<Opiniao> getOpinioes() {
+        return opinioes;
+    }
+
 }

@@ -34,4 +34,12 @@ public class Pergunta {
         this.usuario = usuario;
         this.produto = produto;
     }
+
+    @Deprecated
+    public Pergunta() {
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
 }

@@ -48,4 +48,12 @@ public class Caracteristicas {
     public int hashCode() {
         return Objects.hash(nome);
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 }
