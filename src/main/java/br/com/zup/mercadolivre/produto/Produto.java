@@ -1,6 +1,7 @@
 package br.com.zup.mercadolivre.produto;
 
 import br.com.zup.mercadolivre.categoria.Categoria;
+import br.com.zup.mercadolivre.handler.Error;
 import br.com.zup.mercadolivre.produto.caracteristica.Caracteristicas;
 import br.com.zup.mercadolivre.produto.caracteristica.CaracteristicasRequest;
 import br.com.zup.mercadolivre.produto.opiniao.NovaOpiniaoRequest;
@@ -108,6 +109,14 @@ public class Produto {
         this.perguntas.add(pergunta);
     }
 
+    public void abaterEstoque(int quantidade){
+        this.quantidade = this.quantidade - quantidade;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -122,6 +131,10 @@ public class Produto {
 
     public Set<Caracteristicas> getCaracteristicas() {
         return caracteristicas;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
     public List<Pergunta> getPerguntas() {

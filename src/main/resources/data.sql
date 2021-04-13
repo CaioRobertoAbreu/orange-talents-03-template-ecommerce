@@ -3,7 +3,7 @@ insert into usuario (instante, login, senha) values ('2021-04-08T13:55:47.724619
 
 insert into categoria (nome, categoria_mae_id) values ('Tecnologia', null), ('Smartphone', 1), ('Andorid', 2), ('IOS', 2), ('Notebook', 1)
 
-insert into produto (descricao, instante, nome, quantidade, valor, categoria_id, usuario_id) values ('Um belo redmi note 10', '2021-04-09 13:01:39.527087', 'Redmi note 10', 2, 1100.00, 2, 1 )
+insert into produto (descricao, instante, nome, quantidade, valor, categoria_id, usuario_id) values ('Um belo redmi note 10', '2021-04-09 13:01:39.527087', 'Redmi note 10', 250, 1100.00, 2, 1 )
 
 insert into caracteristicas (descricao, nome, produto_id) values ('OLED', 'Tela', 1)
 insert into caracteristicas (descricao, nome, produto_id) values ('Preto', 'Cor', 1)
