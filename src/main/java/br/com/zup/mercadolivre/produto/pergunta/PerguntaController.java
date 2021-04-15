@@ -21,10 +21,10 @@ public class PerguntaController {
 
     private final UsuarioRepository usuarioRepository;
     private final ProdutoRepository produtoRepository;
-    private final Email email;
+    private final EmailParaDonoProduto email;
 
     public PerguntaController(UsuarioRepository usuarioRepository, ProdutoRepository produtoRepository,
-                              Email email) {
+                              EmailParaDonoProduto email) {
 
         this.usuarioRepository = usuarioRepository;
         this.produtoRepository = produtoRepository;

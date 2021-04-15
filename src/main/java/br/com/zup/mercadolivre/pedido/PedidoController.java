@@ -1,12 +1,12 @@
 package br.com.zup.mercadolivre.pedido;
 
+import br.com.zup.mercadolivre.finalizacompra.EmailParaCliente;
 import br.com.zup.mercadolivre.handler.Error;
 import br.com.zup.mercadolivre.produto.ProdutoRepository;
-import br.com.zup.mercadolivre.produto.pergunta.Email;
+import br.com.zup.mercadolivre.produto.pergunta.EmailParaDonoProduto;
 import br.com.zup.mercadolivre.usuario.Usuario;
 import br.com.zup.mercadolivre.usuario.UsuarioLogado;
 import br.com.zup.mercadolivre.usuario.UsuarioRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,15 +23,15 @@ public class PedidoController {
     private final UsuarioRepository usuarioRepository;
     private final ProdutoRepository produtoRepository;
     private final PedidoRepository pedidoRepository;
-    private final Email email;
+    private final EmailParaDonoProduto emailDonoProduto;
 
     public PedidoController(UsuarioRepository usuarioRepository, ProdutoRepository produtoRepository,
-                            PedidoRepository pedidoRepository, Email email) {
+                            PedidoRepository pedidoRepository, EmailParaDonoProduto emailDonoProduto) {
 
         this.usuarioRepository = usuarioRepository;
         this.produtoRepository = produtoRepository;
         this.pedidoRepository = pedidoRepository;
-        this.email = email;
+        this.emailDonoProduto = emailDonoProduto;
     }
 
     @PostMapping("/produtos/pedido")
@@ -55,8 +55,9 @@ public class PedidoController {
         pedidoRepository.save(pedido);
         String pagamento = request.getMetodoPagamento();
         String url = MetodoPagamento.valueOf(pagamento).realizarPagamento(pedido);
-        email.avisoDeCompra(pedido);
-        return ResponseEntity.status(303).body(url);
+        emailDonoProduto.avisoDeCompra(pedido);
+
+        return ResponseEntity.status(301).body(url);
     }
 
 }

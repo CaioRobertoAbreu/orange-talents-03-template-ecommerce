@@ -1,18 +1,29 @@
 package br.com.zup.mercadolivre.pedido;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 public enum MetodoPagamento implements Pagamento{
 
     PAYPAL("paypal"){
         @Override
         public String realizarPagamento(Pedido pedido) {
-            return "paypal.com?buyerId={"+ pedido.getId()+"}&redirectUrl={urlRetornoAppPosPagamento}";
+            String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/retorno-paypal/{id}")
+                    .buildAndExpand(pedido.getId()).toString();
+
+
+            return "paypal.com?buyerId="+pedido.getId()+"&redirectUrl="+uri;
         }
     },
 
     PAGSEGURO("pagseguro"){
         @Override
         public String realizarPagamento(Pedido pedido) {
-            return "pagseguro.com?returnId={"+pedido.getId()+"}&redirectUrl={urlRetornoAppPosPagamento}";
+            String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/retorno-pagseguro/{id}")
+                    .buildAndExpand(pedido.getId()).toString();
+
+            return "pagseguro.com?returnId="+pedido.getId()+"&redirectUrl="+uri;
         }
     };
 

@@ -18,3 +18,8 @@ insert into pergunta (instante, titulo, produto_id, usuario_id) values ('2021-04
 insert into imagem (link, produto_id) values ('https://aws.com/ml/1652604838', 1)
 insert into imagem (link, produto_id) values ('https://aws.com/ml/918422736', 1)
 
+insert into pedido (metodo_pagamento, quantidade, status, valor_unitario, usuario_id) values ('PAGSEGURO', 52, 'INICIADO', 1100, 1)
+insert into pedido (metodo_pagamento, quantidade, status, valor_unitario, usuario_id) values ('PAYPAL', 12, 'INICIADO', 1100, 1)
+
+insert into pedido_produtos (pedido_id, produtos_id) values (1, 1)
+insert into pedido_produtos (pedido_id, produtos_id) values (2, 1)

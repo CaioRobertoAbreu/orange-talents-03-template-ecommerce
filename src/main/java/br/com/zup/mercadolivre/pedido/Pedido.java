@@ -1,14 +1,19 @@
 package br.com.zup.mercadolivre.pedido;
 
+import br.com.zup.mercadolivre.finalizacompra.Transacao;
+import br.com.zup.mercadolivre.finalizacompra.TransacaoRequest;
 import br.com.zup.mercadolivre.produto.Produto;
 import br.com.zup.mercadolivre.usuario.Usuario;
 import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Pedido {
@@ -19,14 +24,18 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private MetodoPagamento metodoPagamento;
     @ManyToMany
+    @Valid
     private List<Produto> produtos = new ArrayList<>();
     @Column(nullable = false)
     private Integer quantidade;
     @ManyToOne
+    @Valid
     private Usuario usuario;
     private BigDecimal valorUnitario;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private Set<Transacao> transacoes = new HashSet<>();
 
     public Pedido(String metodoPagamento, Produto produto, Integer quantidade, Usuario usuario,
                   Status status) {
@@ -55,5 +64,29 @@ public class Pedido {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public void addTransacao(TransacaoRequest request){
+        Transacao transacao = request.toModel(this);
+        Assert.isTrue(!this.transacoes.contains(transacao), "Transação já existente");
+
+        Set<Transacao> transacoesConcluidas = transacaoConcluida();
+
+        Assert.isTrue(transacoesConcluidas.isEmpty(), "Processo de pagamento ja concluído anteriormente");
+
+        this.transacoes.add(transacao);
+    }
+
+    public boolean concluidaComSucesso() {
+        if (transacaoConcluida().isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    private Set<Transacao> transacaoConcluida() {
+        return this.transacoes.stream()
+                .filter(Transacao::estaConcluida)
+                .collect(Collectors.toSet());
     }
 }

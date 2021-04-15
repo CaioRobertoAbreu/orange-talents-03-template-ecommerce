@@ -88,6 +88,10 @@ public class Produto {
         return usuario.getLogin();
     }
 
+    public Long getIdUsuario(){
+        return this.usuario.getId();
+    }
+
     public void addImagens(Set<String> links) {
         Set<Imagem> imagens = links.stream().map(link -> new Imagem(link, this))
                 .collect(Collectors.toSet());
